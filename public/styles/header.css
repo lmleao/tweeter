@@ -1,0 +1,20 @@
+header {
+  padding: 120px;
+  height: 520px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #d8dbf0;
+  background-image: url("https://www.transparenttextures.com/patterns/subtle-zebra-3d.png");
+}
+
+header .img {
+  display: flex;
+  justify-content: center; 
+}
+
+header h2 {
+  margin: 0;
+}

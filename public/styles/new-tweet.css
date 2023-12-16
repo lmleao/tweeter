@@ -1,0 +1,49 @@
+main .container {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.new-tweet {
+  max-width: 800px;
+  margin: 10px auto;
+  padding: 20px;
+}
+
+.new-tweet label {
+  display: block;
+  font-weight: bold;
+}
+
+.new-tweet textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid black;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0)
+}
+
+.new-tweet button {
+  background-color: #4056A1;;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  font-family: 'Bungee', sans-serif;
+}
+
+.new-tweet .counter {
+  display: flex;
+  justify-content: flex-end;
+  float: right;
+  color: gray;
+  font-family: 'Bungee', sans-serif;
+}
+
+.new-tweet .counter.counter-exceeded {
+  color: red;
+}
+
+.new-tweet div::after {
+  content: "";
+  display: table;
+  clear: both;
+}
