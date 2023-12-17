@@ -1,4 +1,4 @@
-header {
+.page-header {
   padding: 120px;
   height: 520px;
   width: 100%;
@@ -10,11 +10,11 @@ header {
   background-image: url("https://www.transparenttextures.com/patterns/subtle-zebra-3d.png");
 }
 
-header .img {
+page-header .img {
   display: flex;
   justify-content: center; 
 }
 
-header h2 {
+.page-header h2 {
   margin: 0;
 }
