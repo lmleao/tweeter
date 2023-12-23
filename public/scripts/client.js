@@ -6,6 +6,12 @@
 
 $(document).ready(function() {
   
+  const escape = function(str) {
+    let div = document.createElement("div");
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  };
+
   const createTweetElement = function(tweet) {
 
     const formatTimestamp = (timestamp) => {
@@ -16,12 +22,12 @@ $(document).ready(function() {
     let $tweet = $(`
     <article class="tweet">
       <header class="user-info">
-        <img src="${tweet.user.avatars}" alt="User Icon">
-        <h2 class="display-name">${tweet.user.name}</h2>
-        <span class="handle">${tweet.user.handle}</span>
+        <img src="${escape(tweet.user.avatars)}" alt="User Icon">
+        <h2 class="display-name">${escape(tweet.user.name)}</h2>
+        <span class="handle">${escape(tweet.user.handle)}</span>
       </header>
       <div class="tweet-content">
-        <p>${tweet.content.text}</p>
+        <p>${escape(tweet.content.text)}</p>
       </div>
       <footer class="tweet-footer">
         <span class="tweet-date">${formatTimestamp(tweet.created_at)}</span>
