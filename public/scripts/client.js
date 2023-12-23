@@ -10,7 +10,7 @@ $(document).ready(function() {
 
     const formatTimestamp = (timestamp) => {
       const options = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-      return new Date(timestamp).toLocaleDateString('en-US', options);
+      return timeago.format(timestamp, 'en_US', options);
     };
 
     let $tweet = $(`
