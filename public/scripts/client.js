@@ -4,12 +4,37 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
+const data = [
+  {
+    "user": {
+      "name": "Newton",
+      "avatars": "https://i.imgur.com/73hZDYK.png"
+      ,
+      "handle": "@SirIsaac"
+    },
+    "content": {
+      "text": "If I have seen further it is by standing on the shoulders of giants"
+    },
+    "created_at": 1461116232227
+  },
+  {
+    "user": {
+      "name": "Descartes",
+      "avatars": "https://i.imgur.com/nlhLi3I.png",
+      "handle": "@rd" },
+    "content": {
+      "text": "Je pense , donc je suis"
+    },
+    "created_at": 1461113959088
+  }
+];
+
 const createTweetElement = function(tweetObj) {
   const $tweet = $(`
   <article class="tweet">
     <header class="user-info">
       <img src="${tweet.user.avatars}" alt="User Icon">
-      <h2>${tweet.user.name}</h2>
+      <h2 class="display-name">${tweet.user.name}</h2>
       <span class="handle">${tweet.user.handle}</span>
     </header>
     <div class="tweet-content">
@@ -29,22 +54,14 @@ const createTweetElement = function(tweetObj) {
   return $tweet;
 };
 
-// Test / driver code (temporary). Eventually will get this from the server.
-const tweetData = {
-  "user": {
-    "name": "Newton",
-    "avatars": "https://i.imgur.com/73hZDYK.png",
-    "handle": "@SirIsaac"
-  },
-  "content": {
-    "text": "If I have seen further it is by standing on the shoulders of giants"
-  },
-  "created_at": 1461116232227
-};
+const renderTweets = function(tweets) {
+  const $tweetsContainer = $('#tweets-container');
 
-const $tweet = createTweetElement(tweetData);
+  tweets.forEach(tweet => {
+    const $tweet = createTweetElement(tweet);
 
-// Test / driver code (temporary)
-console.log($tweet); // to see what it looks like
-// eslint-disable-next-line no-undef
-$('#tweets-container').append($tweet); // to add it to the page so we can make sure it's got all the right elements, classes, etc.
+    $tweetsContainer.append($tweet);
+  });
+}
+
+renderTweets(data);
