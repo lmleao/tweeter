@@ -19,6 +19,7 @@
 
     <!-- External JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.7/jquery.timeago.min.js"></script>
 
     <!-- App JS -->
     <script type="text/javascript" src="/scripts/client.js"></script>
@@ -45,7 +46,7 @@
     </header>
 
     <!-- Page-specific (main) content here -->
-    <main class="container">
+    <main class="tweets-container">
       <section class="new-tweet">
         <form action="/tweets/" method="POST">
           <label for="tweet-text">What are you humming about?</label>
@@ -59,14 +60,14 @@
       <article class="tweet">
         <header class="user-info">
           <img src="" alt="User Icon">
-          <h4 class="display-name">Isaac Newton</h3>
-          <span class="username">@isaacnewton</span>
+          <h2 class="display-name">Isaac Newton</h3>
+          <span class="handle">@isaacnewton</span>
         </header>
         <section class="tweet-content">
           <p>This is the content of the tweet.</p>
         </section>
         <footer class="tweet-footer">
-          <span class="time-posted">2 hours ago</span>
+          <span class="tweet-date">2 hours ago</span>
           <div class="tweet-icons">
             <i class="fa-solid fa-flag"></i>
             <i class="fa-solid fa-retweet"></i>
