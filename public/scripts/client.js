@@ -32,7 +32,6 @@ $(document).ready(function() {
   ];
   
   const createTweetElement = function(tweet) {
-    console.log(tweet);
 
     const formatTimestamp = (timestamp) => {
       const options = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
@@ -68,10 +67,27 @@ $(document).ready(function() {
   
     tweets.forEach(tweet => {
       const $tweet = createTweetElement(tweet);
-      console.log($tweet);
       $tweetsContainer.append($tweet);
     });
   };
+
+  $('form').submit(function(event) {
+    event.preventDefault();
+
+    const formData = $(this).serialize();
+
+    $.ajax({
+      method: 'POST',
+      url: '/tweets',
+      data: formData
+    })
+      .done(function(response) {
+        renderTweets([response]);
+      })
+      .fail(function(error) {
+        console.error('Error submitting tweet:', error);
+      });
+  });
   
   renderTweets(data);
   
