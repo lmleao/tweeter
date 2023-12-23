@@ -64,12 +64,22 @@ $(document).ready(function() {
   $('form').submit(function(event) {
     event.preventDefault();
 
-    const formData = $(this).serialize();
+    const tweetText = $('#tweet-text').val();
+
+    if (!tweetText) {
+      alert('Tweet cannot be empty!');
+      return;
+    }
+
+    if (tweetText.length > 140) {
+      alert('Tweet exceeds 140 characters!');
+      return;
+    }
 
     $.ajax({
       method: 'POST',
       url: '/tweets',
-      data: formData
+      data: $(this).serialize()
     })
       .done(function(response) {
         renderTweets([response]);
