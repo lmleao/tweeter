@@ -40,15 +40,25 @@ $(document).ready(function() {
     </article>
     `);
   
+    console.log('Created tweet element:', $tweet);
     return $tweet;
   };
   
   const renderTweets = function(tweets) {
     const $tweetsContainer = $('#tweets-container');
+    
+    console.log('Received tweets:', tweets);
+  
+    if (!Array.isArray(tweets)) {
+      console.error('Invalid tweet data. Expected an array:', tweets);
+      return;
+    }
   
     tweets.forEach(tweet => {
       const $tweet = createTweetElement(tweet);
-      $tweetsContainer.append($tweet);
+      if ($tweet) {
+        $tweetsContainer.prepend($tweet);
+      }
     });
   };
 
@@ -65,36 +75,49 @@ $(document).ready(function() {
       });
   };
 
-  loadTweets();
-
-  $('form').submit(function(event) {
-    event.preventDefault();
-
-    const tweetText = $('#tweet-text').val();
-
-    if (!tweetText) {
-      alert('Tweet cannot be empty!');
-      return;
-    }
-
-    if (tweetText.length > 140) {
-      alert('Tweet exceeds 140 characters!');
-      return;
-    }
+  const submitTweet = function(tweetText) {
+    const $tweetsContainer = $('#tweets-container');
 
     $.ajax({
       method: 'POST',
       url: '/tweets',
-      data: $(this).serialize()
+      data: { text: tweetText }
     })
       .done(function(response) {
-        renderTweets([response]);
+        const $newTweet = createTweetElement(response);
+        if ($newTweet) {
+          $tweetsContainer.prepend($newTweet);
+        }
       })
       .fail(function(error) {
         console.error('Error submitting tweet:', error);
       });
+  };
+
+  $('form').submit(function(event) {
+    event.preventDefault();
+
+    $('#error-message').slideUp();
+
+    const tweetText = $('#tweet-text').val();
+
+    if (!tweetText) {
+      $('#error-message').text('Tweet cannot be empty. Please enter a tweet.').slideDown();
+      return;
+    }
+
+    if (tweetText.length > 140) {
+      $('#error-message').text('Tweet exceeds 140 characters. Please shorten your tweet.').slideDown();
+      return;
+    }
+
+    $('#error-message').slideUp();
+
+    submitTweet(tweetText);
+
+    $('#tweet-text').val('');
   });
   
-  renderTweets([]);
+  loadTweets();
   
 });
