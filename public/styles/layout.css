@@ -25,8 +25,8 @@ body {
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
 
-main {
-  width: 90%;
+.tweets-main {
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -34,4 +34,27 @@ main {
   justify-content: center;
   align-items: center;
   background-color: #f4f1ec;
+}
+
+@media (min-width: 1024px) {
+  .tweets-main {
+    flex-direction: row;
+  }
+
+  .page-header {
+    width: 25%;
+    padding: 60px;
+  }
+
+  .content-section {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 120px;
+  }
+
+  .new-tweet,
+  .tweets-container {
+    width: 100%;
+  }
 }
