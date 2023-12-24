@@ -5,20 +5,20 @@
  */
 
 $(document).ready(function() {
-  
+  //Section: Helper functions
   const escape = function(str) {
     let div = document.createElement("div");
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
   };
 
+  const formatTimestamp = (timestamp) => {
+    const options = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+    return timeago.format(timestamp, 'en_US', options);
+  };
+  
+  //Section: Rendering Tweets
   const createTweetElement = function(tweet) {
-
-    const formatTimestamp = (timestamp) => {
-      const options = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-      return timeago.format(timestamp, 'en_US', options);
-    };
-    
     if (!tweet || !tweet.user) {
       console.error('Invalid tweet data:', tweet);
       return null;
@@ -52,7 +52,6 @@ $(document).ready(function() {
     </article>
     `);
   
-    console.log('Created tweet element:', $tweet);
     return $tweet;
   };
   
@@ -65,6 +64,7 @@ $(document).ready(function() {
     });
   };
 
+  //Section: Handling Ajax requests
   const loadTweets = function() {
     const deferred = $.Deferred();
 
@@ -102,6 +102,7 @@ $(document).ready(function() {
       });
   };
 
+  //Section: Event Handlers
   $('form').submit(function(event) {
     event.preventDefault();
 
@@ -123,7 +124,6 @@ $(document).ready(function() {
 
     submitTweet($(this).serialize())
       .then(function() {
-      // After successful submission, load and render the new tweet
         loadAndRenderTweets();
       })
       .fail(function(error) {
@@ -131,6 +131,7 @@ $(document).ready(function() {
       });
   });
   
+  //Section: Initial load
   loadAndRenderTweets();
 
 });
