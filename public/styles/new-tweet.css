@@ -1,7 +1,13 @@
-main .tweets-container {
+main {
   margin-left: auto;
   margin-right: auto;
   width: 800px;
+  display: flex;
+  flex-direction: column;
+}
+
+#tweets-container {
+  width: 90%;
 }
 
 .new-tweet {
@@ -9,6 +15,14 @@ main .tweets-container {
   margin: 10px auto;
   padding: 20px;
   width: 90%;
+}
+
+.error-message {
+  color: white;
+  background-color: #e74c3c; /* Red background color, for example */
+  padding: 10px;
+  border-radius: 5px;
+  display: none; /* Initially hide the error element */
 }
 
 .new-tweet label {
@@ -54,7 +68,7 @@ main .tweets-container {
   width: 90%;
   max-width: 800px;
   border: 1px solid black;
-  margin: 20px;
+  margin: 20px auto;
   padding: 10px;
   display: flex;
   flex-direction: column;
