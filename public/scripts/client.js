@@ -66,16 +66,21 @@ $(document).ready(function() {
   };
 
   const loadTweets = function() {
+    const deferred = $.Deferred();
+
     $.ajax({
       method: 'GET',
       url: '/tweets'
     })
       .done(function(response) {
-        renderTweets(response);
+        deferred.resolve(response);
       })
       .fail(function(error) {
         console.error('Error loading tweets:', error);
+        deferred.reject(error);
       });
+    return deferred.promise();
+    
   };
 
   const submitTweet = function(tweetData) {
