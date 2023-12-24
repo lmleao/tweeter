@@ -18,7 +18,19 @@ $(document).ready(function() {
       const options = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
       return timeago.format(timestamp, 'en_US', options);
     };
-
+    
+    if (!tweet || !tweet.user) {
+      console.error('Invalid tweet data:', tweet);
+      return null;
+    }
+  
+    const user = tweet.user;
+  
+    if (!user.avatars || !user.name || !user.handle) {
+      console.error('Invalid user data:', user);
+      return null;
+    }
+    
     let $tweet = $(`
     <article class="tweet">
       <header class="user-info">
@@ -46,19 +58,10 @@ $(document).ready(function() {
   
   const renderTweets = function(tweets) {
     const $tweetsContainer = $('#tweets-container');
-    
-    console.log('Received tweets:', tweets);
-  
-    if (!Array.isArray(tweets)) {
-      console.error('Invalid tweet data. Expected an array:', tweets);
-      return;
-    }
   
     tweets.forEach(tweet => {
       const $tweet = createTweetElement(tweet);
-      if ($tweet) {
-        $tweetsContainer.prepend($tweet);
-      }
+      $tweetsContainer.prepend($tweet);
     });
   };
 
@@ -75,22 +78,22 @@ $(document).ready(function() {
       });
   };
 
-  const submitTweet = function(tweetText) {
-    const $tweetsContainer = $('#tweets-container');
-
-    $.ajax({
+  const submitTweet = function(tweetData) {
+    return $.ajax({
       method: 'POST',
       url: '/tweets',
-      data: { text: tweetText }
-    })
-      .done(function(response) {
-        const $newTweet = createTweetElement(response);
-        if ($newTweet) {
-          $tweetsContainer.prepend($newTweet);
-        }
+      data: tweetData
+    });
+  };
+
+  const loadAndRenderTweets = function() {
+    loadTweets()
+      .then(function(response) {
+        renderTweets(response);
+        $('#tweet-text').val('');
       })
       .fail(function(error) {
-        console.error('Error submitting tweet:', error);
+        console.error('Error loading tweets:', error);
       });
   };
 
@@ -113,11 +116,16 @@ $(document).ready(function() {
 
     $('#error-message').slideUp();
 
-    submitTweet(tweetText);
-
-    $('#tweet-text').val('');
+    submitTweet($(this).serialize())
+      .then(function() {
+      // After successful submission, load and render the new tweet
+        loadAndRenderTweets();
+      })
+      .fail(function(error) {
+        console.error('Error submitting tweet:', error);
+      });
   });
   
-  loadTweets();
-  
+  loadAndRenderTweets();
+
 });
