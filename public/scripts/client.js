@@ -57,8 +57,6 @@ $(document).ready(function() {
   
   const renderTweets = function(tweets) {
     const $tweetsContainer = $('#tweets-container');
-
-    $tweetsContainer.empty();
   
     tweets.forEach(tweet => {
       const $tweet = createTweetElement(tweet);
@@ -96,7 +94,11 @@ $(document).ready(function() {
   const loadAndRenderTweets = function() {
     loadTweets()
       .then(function(response) {
+        const $tweetsContainer = $('#tweets-container');
+        $tweetsContainer.empty();
+
         renderTweets(response);
+        
         $('#tweet-text').val('');
         $('.counter').text('140').removeClass('counter-exceeded');
       })
