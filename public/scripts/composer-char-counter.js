@@ -13,7 +13,7 @@ $(document).ready(function() {
     if (remainingChars < 0) {
       counter.addClass('counter-exceeded');
     } else {
-      counter.css('counter-exceeded');
+      counter.removeClass('counter-exceeded');
     }
   });
 });
